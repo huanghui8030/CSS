@@ -1,0 +1,171 @@
+/**
+ * less语法详解
+ * huangh@chsi.com.cn
+ * 2016.07.16 
+ */
+body{
+  text-align: center;
+  margin:0 auto;
+  font-size:14px;
+  h1,h2{
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+  }
+}
+/* begin demo ，以及注释*/
+@base: #f938ab;
+@width:20px;
+.box-shadow(@style, @c) when (iscolor(@c)) {
+	width:@width;
+	height:@width;
+  background-color: red;
+  color:#fff;
+	margin-top:20px;
+  -webkit-box-shadow: @style @c;
+  box-shadow:         @style @c;
+}
+//阴影
+.box-shadow(@style, @alpha: 50%) when (isnumber(@alpha)) {
+  .box-shadow(@style, rgba(0, 0, 0, @alpha));
+}
+//盒子
+.box {
+  color: saturate(@base, 5%);
+  border-color: lighten(@base, 30%);
+  .div1 { .box-shadow(0 0 5px, 30%) }
+  .div2{
+  	.box-shadow(5px 5px 5px 5px,@base);
+  }
+}
+
+/*demo1 变量*/
+@cGray:#ccc; 
+@cRed:red;
+@width:80px;
+@height:120px;
+.demo1{
+  background-color: cGray;
+  color:@cRed;
+  .div1{
+    color:@cGray;
+    border:1px solid @cGray;
+    width:@width;
+    height:@height;
+  }
+  .div2{
+    color:@cRed;
+    background:@cGray;
+    width:@height;
+    height:@width;
+  }
+}
+/* demo2 嵌套 */
+#demo2 {  
+  h1 {    
+    font-size: 26px;    
+    font-weight: bold;  
+  }  
+  p { 
+    font-size: 12px;  
+    color:#90bd39;  
+    a { text-decoration: none;      
+      &:hover { text-decoration: underline;  }
+    }  
+ }
+}
+/* demo3 运算 */
+@basewidth: 100px;
+@baseColor: #111;
+@blue: #09c;
+#demo3{
+  margin: 0 auto;
+  div{
+    width:100px;
+    height:30px;
+    margin-bottom:20px;
+    margin:0 auto;
+    border:1px solid #ccc;
+  }
+  .div1 {
+    color: @baseColor * 3;
+    height: @basewidth;
+    width: @basewidth * 2;
+  }
+  .div2 { 
+    color: @baseColor + #003300;
+    background-color: desaturate(@blue, 10%);
+  }
+  @var: 20px;
+  .div3 {
+    // 先计算了5 * 2 = 10 然后在计算了 @var + 10 = 30px,其实就是"@var+(5*2)"
+    width: @var + 5 * 2;
+    //先计算了(@var + 5) = 25px,然后在计算了25*2=50px，因为括号更具有优先权，小学数学题
+    height: (@var + 5 ) * 2;
+  }
+}
+
+/* demo4 继承 */
+.rounded-corners (@radius: 5px) {
+  width:100px;
+  height:30px;
+  margin-bottom:10px;
+  background-color: #ccc;
+  color:#333;
+  border-radius: @radius;
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+}
+#demo4 {
+  .div1{
+    .rounded-corners;
+  }
+  .div2{
+    .rounded-corners(10px);
+  } 
+}
+/* demo5 匹配模式 */
+//@_默认都调用
+.triangle(@_){
+  width:0;
+  height:0;
+  overflow:hidden;
+}
+.triangle(top,@w:5px,@c:#ccc){
+  border-width:@w;
+  border-color:@c transparent transparent transparent;
+  border-style:solid dashed dashed dashed;
+}
+.triangle(bottom,@w:5px,@c:#ccc){
+  border-width:@w;
+  border-color:transparent transparent @c transparent;
+  border-style: dashed dashed solid dashed;
+}
+#demo5{
+  div{
+    margin:0 auto;
+    margin-bottom:20px;
+  }
+  .div1{
+    .triangle(top);
+  }
+  .div2{
+    .triangle(bottom);
+  } 
+}
+
+/* demo6 @arguments 变量、避免编译、!important */
+.border(@w:5px,@c:red,@s:solid){
+  border:@arguments;
+}
+#demo6{
+  div{
+    margin:0 auto;
+    margin-bottom:20px;
+  }
+  .div1{
+    .border(10px);
+  }
+}
+
+
+
