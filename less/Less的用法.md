@@ -173,7 +173,7 @@ less官网：Less is More , Than CSS -少即是多，比CSS
 
 ### 3.2 变量
 
-变量允许单独定义一系列通用的样式，然后在需要的时候进行调用。
+变量`@`来定义，允许单独定义一系列通用的样式，然后在需要的时候进行调用。
 
 ```less
 //less                          
@@ -302,9 +302,59 @@ less官网：Less is More , Than CSS -少即是多，比CSS
 }
 ```
 
+### 3.5 颜色函数
+
+- 色轮，spin(param1,param2)函数
+
+  - 互补色，互补的颜色正好在色轮相反的位置
+
+    ```less
+    @colorBase:#3bafdA;
+    @colorComplement:spin(@colorBase,180);//得到#dc6939
+    ```
+
+  - 三元色。我们可以进一步探讨颜色模型并且创建一个三元色结构。“三元”，顾名思义，是由三种颜色组成。因此，我们将色轮分成三部分，并且用函数spin()来设置旋转的度数：
+
+    ```less
+    @triadicSecondary:spin(@colorBase,-(360/3));//第二种颜色#b1d926
+    @triadicTertiary:spin(@colorBase, 360/3);//第三种颜色#db43b2
+    ```
 
 
-### 3.5 继承
+- 混合色，mix(param1,param2)，对两个颜色进行混合
+
+  ```less
+  #div1{color:mix(red,yello)}//#ff800
+  ```
+
+- 明暗度，lighten(param1,param2)浅一点，darken(param1,param2)深一点
+
+  ```less
+  @ahover:lighten(@colorBase,10%);
+  @afocus:darken(@colorBase,10%);
+  ```
+
+
+- 饱和度，saturate(param1,param2)和desaturate(param1,param2)。饱和度定义了一种颜色的深度。饱和度越大，颜色越亮丽，最低饱和度则会使颜色趋于灰色。
+
+  ```less
+  @btnHover:saturate(@colorBase,10%);
+  @btnFocus:desaturate(@colorBase,10%);
+  @btnDisable:lightness(desaturate(@colorBase,100%),30%;
+  ```
+
+- 智能色彩输出。LESS让我们的样式变得更智能。举例来说，我们能让我们的样式自己“思考”并决定什么颜色在什么条件下适用。假设我们正在创建一个网站模板，这是按钮的
+  基本样式，你打算用不同的颜色和风格来扩展它。但是我们怎样控制颜色的输出呢？我们当然不希望深色的文字在深色的背景上，反之亦然。我们需要确保文本保留对比，以便于阅读，这样，contrast()函数就派上用场了。
+
+  ```less
+  @bColor:#000;
+  div{
+    background-color:@bColor;
+    color:contrast(@bColor);//#ff
+  }
+  ```
+
+### 3.6 继承
 
 混合可以将一个定义好的class A轻松引入到另个class B里面，从而简单实现class B继承class A中的所有属性。还可以带参数调用，和函数一样。
 
@@ -327,7 +377,7 @@ less官网：Less is More , Than CSS -少即是多，比CSS
   -moz-border-radius: @radius;
 }
 .div1{
-  .rounded-corners;
+  .rounded-corners();//.rounded-corners;
 }
 .div2{
   .rounded-corners(10px);
@@ -358,9 +408,9 @@ less官网：Less is More , Than CSS -少即是多，比CSS
 }
 ```
 
-### 3.6 匹配模式
+### 3.7 匹配模式
 
-写一个三角，
+匹配模式，即使同一个函数用不同的参数时调用不同的方法。例如写一个三角：
 
 ```less
 .triangleBase{
@@ -381,14 +431,51 @@ less官网：Less is More , Than CSS -少即是多，比CSS
   border-style: dashed dashed solid dashed;
 }
 .div1{
-  .triangle(bottom);
+  .triangle(top);
 }
+.div2{
+  .triangle(bottom);
+} 
+```
+
+另一种写法，`@_` 所有方法都调用：
+
+```less
+.triangle(@_){
+  width:0;
+  height:0;
+  overflow:hidden;
+}
+.triangle(top,@w:5px,@c:#ccc){
+  border-width:@w;
+  border-color:@c transparent transparent transparent;
+  border-style:solid dashed dashed dashed;
+}
+.triangle(bottom,@w:5px,@c:#ccc){
+  border-width:@w;
+  border-color:transparent transparent @c transparent;
+  border-style: dashed dashed solid dashed;
+}
+.div1{
+  .triangle(top);
+}
+.div2{
+  .triangle(bottom);
+} 
 ```
 
 生成的css：
 
 ```css
-#demo5 .div2 {
+.div1 {
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  border-width: 5px;
+  border-color: #cccccc transparent transparent transparent;
+  border-style: solid dashed dashed dashed;
+}
+.div2 {
   width: 0;
   height: 0;
   overflow: hidden;
@@ -398,11 +485,12 @@ less官网：Less is More , Than CSS -少即是多，比CSS
 }
 ```
 
-### 3.7 @arguments 变量、避免编译、!important
+### 3.8 其他
 
-@arguments包含所有传递进来的参数。
+**@arguments变量**包含所有传递进来的参数。
 
 ```less
+//@argumentts变量
 .border(@w:30px,@c:red,@s:solid){
   border:@arguments;
 }
@@ -411,34 +499,94 @@ less官网：Less is More , Than CSS -少即是多，比CSS
 }
 ```
 
-避免编译
+**避免编译**，有时候需要输出一些不正确的css语法或者使用一些Less不认识的专有语法，在前面加入`~` 。
 
+```less
+.test{
+  filter: ~"progid:DXImageTransform.Microsoft.Alpha(opacity=20)";
+}
 ```
 
+```css
+.test{
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20); 
+}
 ```
 
-!important
+**!important关键字**，会为所有混合所带来的样式，添加上!important
 
+```less
+.test{
+  .border()!important;
+}
 ```
 
+**JavaScript 赋值**，在样式表中使用Javascript——相当精彩。你可以使用表达式，也可以参考环境方向来使用反单引号。
+
+```less
+@string: `'hello'.toUpperCase()`; /* @string 变成 'HELLO' */ 
+   
+/* 你也可以使用前面提到的插值： */ 
+@string: 'HELLO';  
+@var: ~`'@{string}'.topUpperCase()`; /* 变为 'HELLO' */ 
+   
+/* 获取文档的信息 */ 
+@height = `document.body.clientHeight`;
 ```
 
-### 3.8 总结
+### 3.9 总结
 
 - 注释，可解析注释和不可解析的注释
-- 变量，通过改变一个值改变多处样式
+- 变量用`@`定义，通过改变一个值改变多处样式
+- 嵌套，符合dom结构
+- 运算，加减乘除四则运算规律
 
 
 - 继承，和js函数一样
-- 嵌套，符合dom结构
-- 运算，加减乘除四则运算规律
 - 匹配模式，类似函数参数
+- @arguments 变量包含所有传递进来的参数、避免编译`~`、!important为所有样式加上!important
+- color函数：`lighten(@color,10%)`，`darken(@color,10%)`
+- 导入：`@import：'style'` less文件扩展名可选，`@import:'style.css'` 。减少服务器资源请求
+- 字符串插入，字符串也可以用于变量中，然后通过`@{name}` 来调用
 
 
-## 4 参考文档
+```less
+@base_url : 'http://www.t1.chei.com.cn/common';  
+background-image: url("@{base_url}/images/background.png"); 
+```
 
-- http://www.lesscss.net/#editors-and-plugins--ide
+## 4 Less和Sass的区别
+
+**相同点**
+
+- 两则都是css预编译
+
+**不同点**
+
+- Less环境以及使用方面比Sass简单
+- 条件语句与控制，less不支持。Sass可以使用if { } else { } 条件语句，以及for { }循环。它甚至支持 and、 or和 not，以及 <、 >、 <=、 >= 和 == 等操作符。
+- koala输出格式，LESS：normal（正常）、compress（压缩）。而Sass提供4中输出选项：nested（正常缩进）、expanded（括号不单独占一行）、 compact（一个类一行显示）和compressed （压缩为一行）。
+- less基于纯JavaScript，通过服务器端来处理的；Sass是基于Ruby的，在服务器端处理。
+
+**总结**
+
+​	如果你是Ruby或HAML的粉丝，那么Sass会是你的好助手。对我来说，一个前端开发人员，我倾向于LESS，因为它便于引入和能够使用JavaScript的表达式以及文档属性。对于新手来说更简单可用。
+
+**为什么用Less**
+
+- 简单，易于维护
+- 用@import导入css或者less文件，减少服务器资源请求
+
+## 5 参考文档
+
+- http://www.lesscss.net
+
 - http://lesscss.cn/usage/
+
 - http://less.bootcss.com/usage/
+
 - http://www.lesscss.net/#using-less-in-the-browser-errorreporting
-- ​
+
+- [color颜色函数](http://www.wzsky.net/html/Website/Color/125373.html)
+
+  ​
