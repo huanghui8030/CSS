@@ -1,8 +1,9 @@
+@charset 'utf-8';
 /**
  * less语法详解
  * huangh@chsi.com.cn
  * 2016.07.16 
- */
+ */ 
 body{
   text-align: center;
   margin:0 auto;
@@ -44,7 +45,7 @@ body{
 @width:80px;
 @height:120px;
 .demo1{
-  background-color: cGray;
+  background-color:cGray;
   color:@cRed;
   .div1{
     color:@cGray;
@@ -62,17 +63,21 @@ body{
 /* demo2 嵌套 */
 #demo2 {  
   h1 {    
-    font-size: 26px;    
-    font-weight: bold;  
+    font-size:26px;
+    font-weight:bold;  
   }  
   p { 
-    font-size: 12px;  
+    font-size:12px;  
     color:#90bd39;  
-    a { text-decoration: none;      
-      &:hover { text-decoration: underline;  }
-    }  
- }
+    a { 
+      text-decoration:none;      
+      &:hover { 
+        text-decoration:underline;  
+      }
+    } 
+  } 
 }
+
 /* demo3 运算 */
 @basewidth: 100px;
 @baseColor: #111;
@@ -140,7 +145,7 @@ body{
   border-color:transparent transparent @c transparent;
   border-style: dashed dashed solid dashed;
 }
-#demo5{
+#demo5{ 
   div{
     margin:0 auto;
     margin-bottom:20px;
