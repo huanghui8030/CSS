@@ -3,11 +3,12 @@
  * less语法详解
  * huangh@chsi.com.cn
  * 2016.07.16 
- */ 
+ */
+//less语法详解，2016.07.23
 body{
   text-align: center;
   margin:0 auto;
-  font-size:14px;
+  font-size:16px;
   h1,h2{
     text-align: center;
     border-bottom: 1px solid #ccc;
@@ -62,22 +63,22 @@ body{
   }
 }
 /* demo2 嵌套 */
-#demo2 {  
-  h1 {    
-    font-size:26px;
-    font-weight:bold;  
-  }  
-  p { 
-    font-size:12px;  
-    color:#90bd39;  
-    a { 
-      text-decoration:none;      
-      &:hover { 
-        text-decoration:underline;  
-      }
-    } 
-  } 
-}
+//#demo2 {  
+//  h1 {    
+//    font-size:14px;
+//    font-weight:bold;  
+//  }  
+//  p { 
+//    font-size:12px;  
+//    color:#90bd39; 
+//  } 
+//a { 
+//      text-decoration:none;      
+//      &:hover { 
+//        text-decoration:underline;  
+//      }
+//    }     
+//}
 
 /* demo3 运算 */
 @basewidth: 100px;
@@ -159,7 +160,7 @@ body{
   } 
 }
 
-/* demo6 @arguments 变量、避免编译、!important */
+/* demo6 @arguments 变量、避免编译 */
 .border(@w:5px,@c:red,@s:solid){
   border:@arguments;
 }

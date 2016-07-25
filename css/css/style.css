@@ -7,7 +7,7 @@
 body {
   text-align: center;
   margin: 0 auto;
-  font-size: 14px;
+  font-size: 16px;
 }
 body h1,
 body h2 {
@@ -55,20 +55,6 @@ body h2 {
   height: 80px;
 }
 /* demo2 嵌套 */
-#demo2 h1 {
-  font-size: 26px;
-  font-weight: bold;
-}
-#demo2 p {
-  font-size: 12px;
-  color: #90bd39;
-}
-#demo2 p a {
-  text-decoration: none;
-}
-  #demo2 p a:hover {
-  text-decoration: underline;
-}
 /* demo3 运算 */
 #demo3 {
   margin: 0 auto;

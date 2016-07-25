@@ -1,4 +1,7 @@
 @charset 'utf-8';
+body {
+  font-size: 14px;
+}
 /**
  * less语法详解
  * huangh@chsi.com.cn
@@ -121,7 +124,7 @@ body h2 {
   border-color: transparent transparent #ccc transparent;
   border-style: dashed dashed solid dashed;
 }
-/* demo6 @arguments 变量、避免编译 */
+/* demo6 @arguments 变量、避免编译、!important */
 #demo6 div {
   margin: 0 auto;
   margin-bottom: 20px;
