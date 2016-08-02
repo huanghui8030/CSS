@@ -2,6 +2,12 @@
 
 ## 1、什么是Less？
 
+​	less官网：Less is More , Than CSS -少即是多，比CSS
+
+​	官网gitbug：https://github.com/less/less.js
+
+### 1.1 Less介绍
+
 less是一门css预处理语言，或是一种动态样式语言。扩展了css语言，增加了变量、继承、嵌套、运算、函数等特性，使css更易维护和扩展。（类似jquery）
 
 less既可以在浏览器端上运行（支持IE7+、chrome、ff等主流浏览器，不支持iPad `待测试`），也可以在Node服务器端运行。
@@ -58,28 +64,66 @@ less既可以在浏览器端上运行（支持IE7+、chrome、ff等主流浏览�
 }
 ```
 
-less官网：Less is More , Than CSS -少即是多，比CSS
+现在流行的css预编译语言：Less和Sass
 
-官网gitbug：https://github.com/less/less.js
+### 1.2 Less的优点
+
+- 简单，易于维护，CSS管理更加容易
 
 
+- 高效的进行开发
+
+
+- 使用Less实现配色将变得非常容易。
+
+
+- 与CSS能够很好地融合使用。
+
+
+- 同时兼容CSS3
 
 ## 2、如何调用less
 
-- 运用工具koala或者SimpLess是来自动解析成.css文件（已给大家讲过，这里不在重复）
+### 2.1 Less调用方法
+
+- 运用GUI工具运用工具koala或者SimpLess是来自动解析成.css文件（已给大家讲过，这里不在重复）
 
 
 - 引用less.js进行解析，在页面引入less.js对.less文件进行解析。
 - less官网在线解析：http://less2css.org
 - 运用node来解析成css
+- 利用gulp等自动化工具进行解析`研究中`
 
-### 2.1 less.js在线解析
+### 2.2 GUI工具Koala
+
+- Source Map：编译过程中生成 css 对应的 map 文件。调试时使用，有了source map，浏览器里直接显示less，非常方便
+
+
+- Line Comments：保留注释，勾选后编译中在注释上一行添加一条空行。
+
+
+- Autoprefix：自动给 CSS3 元素加上浏览器前缀。
+
+  参考：[知乎](http://www.zhihu.com/question/26075208)
+
+### 2.3 服务器端解析： less.js解析
 
 - 第一步，引入styls.less，注意` rel=“stylesheet/less” ` 
 
+  1、内联样式：
+
   ```html
-  <link rel="stylesheet/less" type="text/css" href="styles.less" />
+  <style type="text/less">
+    // less 代码
+  </style>
   ```
+
+
+​	2、外联样式
+
+```html
+  <link rel="stylesheet/less"  href="styles.less" />
+```
 
 
 - 第二步，参数配置（可省略）`具体意思待研究`
@@ -131,8 +175,10 @@ less官网：Less is More , Than CSS -少即是多，比CSS
   - 如果加载多个`.less`样式表文件，每个单独编译，一个文件中定义的任何变量都无法再其他文件中访问。不会存在变量重复问题。
   - 在服务器环境下使用，本地直接打开可能会报错！
   - Less兼容IE7+，如需兼容则需要先引入[es5-shim.js](https://github.com/es-shims/es5-shim)即可。
+  - 其中还有一些高级配置，也可通过浏览器直接调试，具体见参考文档。
+  - 不建议使用，增加服务器压力，不利于调试。
 
-### 2.2 node解析
+### 2.4 Node解析
 
 - 先按照node.js
 
@@ -149,13 +195,35 @@ less官网：Less is More , Than CSS -少即是多，比CSS
   $ lesssc styles.less styles.css
   ```
 
-- 解析成min.css文件
+- 解析成min.css文件，安装clean-css
+
+  ```
+  $ npm install clean-css
+  ```
 
   ```
   $ lessc --clean-css styles.less styles.min.css
   ```
 
-### 2.3 IDE 对应的插件
+  [less命令行用法](http://www.lesscss.net/)
+
+- node上安装即时编译的插件
+
+  ```
+  $ (sudo) npm install -g less-watch-compiler
+  $ less-watch-compiler path_input path_out
+  $ less-watch-compiler path_input path_out fileName.less
+  ```
+
+- 添加厂商前缀
+
+  ```
+  $(sudo) npm install -g less-plugin-autoprefix
+  $ less inputFile.less outFile.less —autoprefix=“browsers”
+  $ lessc test.less test.css --autoprefix="ie >= 8, last 3 versions, > 2%"
+  ```
+
+### 2.5 IDE 对应的插件
 
 - SublimeText：[Less-sublime](https://github.com/danro/Less-sublime)、[Sublime-Less-to-CSS](https://github.com/timdouglas/sublime-less2css)、[Less-build-sublime](https://github.com/berfarah/Less-build-sublime)、[SublimeOnSaveBuild](https://github.com/alexnj/SublimeOnSaveBuild)
 
@@ -534,6 +602,15 @@ less官网：Less is More , Than CSS -少即是多，比CSS
 @height = `document.body.clientHeight`;
 ```
 
+**@import**，用@import导入css或者less文件，减少服务器资源请求
+
+- less文件可以省略后缀名，同时可以在文件任意地方引入
+
+
+- css文件需要加入后缀名
+
+用@import时，Koala编译会让软件崩溃，用node吧！
+
 ### 3.9 总结
 
 - 注释，可解析注释和不可解析的注释
@@ -555,11 +632,13 @@ less官网：Less is More , Than CSS -少即是多，比CSS
 background-image: url("@{base_url}/images/background.png"); 
 ```
 
-## 4 Less和Sass的区别
+
+## 4 Less和Sass的对比
 
 **相同点**
 
-- 两则都是css预编译
+- 两者都是css预编译
+- 很多语法类似，思想一样
 
 **不同点**
 
@@ -572,21 +651,15 @@ background-image: url("@{base_url}/images/background.png");
 
 ​	如果你是Ruby或HAML的粉丝，那么Sass会是你的好助手。对我来说，一个前端开发人员，我倾向于LESS，因为它便于引入和能够使用JavaScript的表达式以及文档属性。对于新手来说更简单可用。
 
-**为什么用Less**
-
-- 简单，易于维护
-- 用@import导入css或者less文件，减少服务器资源请求
+​	对于刚接触的css预编译的前端，我推荐用Less
 
 ## 5 参考文档
 
 - http://www.lesscss.net
-
 - http://lesscss.cn/usage/
-
 - http://less.bootcss.com/usage/
-
 - http://www.lesscss.net/#using-less-in-the-browser-errorreporting
-
+- [Less中文网](http://lesscss.cn/http://lesscss.cn/)
 - [color颜色函数](http://www.wzsky.net/html/Website/Color/125373.html)
+- [如何在浏览器中调试less & sass](http://www.cr173.com/html/20939_1.html)
 
-  ​
