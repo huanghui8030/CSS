@@ -1,0 +1,29 @@
+{
+  "name": "archive",
+  "version": "1.0.0",
+  "description": "css3常用样式",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp-less": "^3.1.0",
+    "gulp": "^3.9.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-chsi-rev": "^1.1.0",
+    "gulp-clean": "^0.3.2",
+    "gulp-concat-css": "^2.3.0",
+    "gulp-cssnano": "^2.1.2",
+    "gulp-less": "^3.3.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-watch": "^4.3.11"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "css3常用样式"
+  ],
+  "author": "huangh#chsi.com.cn",
+  "license": "ISC"
+}

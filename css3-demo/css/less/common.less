@@ -1,0 +1,54 @@
+
+@import url(_base.less);
+ 
+//三角形（带边框）样式定义
+@sjxbjBorderColor:#ccc;
+@sjxbjBgColor:#fff;
+@sjxbjWidth : 200px;
+@sjxbjHeight : 100px;
+
+
+/*
+ * 三角形（带边框）样式
+ **/
+.sjxbj-box{
+    position: relative;
+    top:30px;
+    right:0px;
+    width:  @sjxbjWidth;
+    height: @sjxbjHeight;
+    padding:8px;
+    background-color: @sjxbjBgColor;
+    border: solid 1px @sjxbjBorderColor;
+    border-radius: 3px;
+}
+.sjxbj-box:before{//三角
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    top: -16px;;
+    right:41px;
+    padding:0;
+    border-bottom:8px solid @sjxbjBgColor;
+    border-top:8px solid transparent;
+    border-left:8px solid transparent;
+    border-right:8px solid transparent;
+    display: block;
+    content:""; 
+    z-index: 12; 
+}
+.sjxbj-box:after{//边框
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    top: -18px;;
+    right:40px;
+    padding:0;
+    border-bottom:9px solid @sjxbjBorderColor;
+    border-top:9px solid transparent;
+    border-left:9px solid transparent;
+    border-right:9px solid transparent;
+    display: block;
+    content: "";
+    z-index:10
+}

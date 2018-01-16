@@ -1,0 +1,123 @@
+/* 初始化CSS */
+body,
+p,
+ul,
+ol,
+li,
+img,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+form,
+fieldset,
+legend,
+select,
+input {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: #F1F1F1;
+  color: #333;
+  text-align: left;
+  font: 14px/1.5 tahoma, arial, 'Microsoft YaHei', "Hiragino Sans GB", SimSun, sans-serif;
+}
+ul,
+ol,
+li {
+  list-style: none;
+}
+select,
+input {
+  vertical-align: middle;
+  font-size: 14px;
+  font-family: Tahoma, Helvetica, Arial, 'Microsoft YaHei', SimSun, sans-serif;
+}
+img {
+  border: 0;
+}
+p {
+  text-indent: 2em;
+}
+input {
+  border: none;
+  outline: medium;
+}
+* {
+  -webkit-box-sizing: content-box;
+     -moz-box-sizing: content-box;
+          box-sizing: content-box;
+}
+a,
+a:link,
+a:visited {
+  color: #333333;
+  text-decoration: none;
+}
+a:hover {
+  color: #BB3543;
+  text-decoration: underline;
+}
+.clearfix:after {
+  content: '\0020';
+  display: block;
+  clear: both;
+  height: 0;
+}
+.clearfix {
+  zoom: 1;
+}
+.clearFloat {
+  clear: both;
+  height: 0;
+  line-height: 0;
+  font-size: 0;
+  overflow: hidden;
+}
+/*
+ * 三角形（带边框）样式
+ **/
+.sjxbj-box {
+  position: relative;
+  top: 30px;
+  right: 0px;
+  width: 200px;
+  height: 100px;
+  padding: 8px;
+  background-color: #fff;
+  border: solid 1px #ccc;
+  border-radius: 3px;
+}
+.sjxbj-box:before {
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  top: -16px;
+  right: 41px;
+  padding: 0;
+  border-bottom: 8px solid #fff;
+  border-top: 8px solid transparent;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  display: block;
+  content: "";
+  z-index: 12;
+}
+.sjxbj-box:after {
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  top: -18px;
+  right: 40px;
+  padding: 0;
+  border-bottom: 9px solid #ccc;
+  border-top: 9px solid transparent;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  display: block;
+  content: "";
+  z-index: 10;
+}
