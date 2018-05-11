@@ -633,27 +633,27 @@ background-image: url("@{base_url}/images/background.png");
 ```
 
 
-## 4 Less和Sass的对比
+## 4、Less和Sass的对比
 
-**相同点**
+### 相同点
 
 - 两者都是css预编译
 - 很多语法类似，思想一样
 
-**不同点**
+### 不同点
 
 - Less环境以及使用方面比Sass简单
 - 条件语句与控制，less不支持。Sass可以使用if { } else { } 条件语句，以及for { }循环。它甚至支持 and、 or和 not，以及 <、 >、 <=、 >= 和 == 等操作符。
 - koala输出格式，LESS：normal（正常）、compress（压缩）。而Sass提供4中输出选项：nested（正常缩进）、expanded（括号不单独占一行）、 compact（一个类一行显示）和compressed （压缩为一行）。
 - less基于纯JavaScript，通过服务器端来处理的；Sass是基于Ruby的，在服务器端处理。
 
-**总结**
+### 总结
 
 ​	如果你是Ruby或HAML的粉丝，那么Sass会是你的好助手。对我来说，一个前端开发人员，我倾向于LESS，因为它便于引入和能够使用JavaScript的表达式以及文档属性。对于新手来说更简单可用。
 
 ​	对于刚接触的css预编译的前端，我推荐用Less
 
-## 5 参考文档
+## 5、参考文档
 
 - http://www.lesscss.net
 - http://lesscss.cn/usage/
